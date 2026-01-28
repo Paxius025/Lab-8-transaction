@@ -3,6 +3,7 @@ import './providers/transaction_provider.dart';
 import './model/transaction.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'screens/form_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
@@ -41,7 +43,11 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
         actions: [
-          
+          IconButton(onPressed: () {
+            Navigator.push(context, 
+            MaterialPageRoute(builder: (context) => const FormScreen()));
+          }, icon: const Icon(Icons.add))
+
         ],
       ),
       body: Consumer(
