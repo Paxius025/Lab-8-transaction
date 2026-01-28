@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: const MyHomePage(title: 'Transaction App'),
         debugShowCheckedModeBanner: false,
       ),
     );
@@ -43,36 +43,51 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
         actions: [
-          IconButton(onPressed: () {
-            Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => FormScreen()));
-          }, icon: const Icon(Icons.add))
-
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FormScreen()),
+              );
+            },
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: Consumer(
         builder: (context, TransactionProvider provider, child) {
-          return ListView.builder(
-            itemCount: provider.transactions.length,
-            itemBuilder: (context, int index) {
-              Transactions data = provider.transactions[index];
-              return Card(
-                elevation: 5,
-                //margin: const EdgeInsets.all(10.0),
-                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: FittedBox(child: Text(data.amount.toString())),
+          var count = provider.transactions.length;
+
+          if (count <= 0) {
+            return Center(
+              child: Text("No data now..", style: TextStyle(fontSize: 35)),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: provider.transactions.length,
+              itemBuilder: (context, int index) {
+                Transactions data = provider.transactions[index];
+                return Card(
+                  elevation: 5,
+                  //margin: const EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 5,
                   ),
-                  title: Text(data.title),
-                  subtitle: Text(
-                    DateFormat("dd/MM/yyyy HH:mm:ss").format(data.date),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: FittedBox(child: Text(data.amount.toString())),
+                    ),
+                    title: Text(data.title),
+                    subtitle: Text(
+                      DateFormat("dd/MM/yyyy HH:mm:ss").format(data.date),
+                    ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            );
+          }
         },
       ),
     );
