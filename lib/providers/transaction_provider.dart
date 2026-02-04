@@ -22,6 +22,13 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTransaction(Transactions statement) async {
+    var db = TransactionDB(dbName: "transactions.db");
+    await db.deleteData(statement);
+    transactions = await db.loadAllData();
+    notifyListeners();
+  }
+
   void initData() async {
     var db = TransactionDB(dbName: "transactions.db");
     //ดึงข้อมูลมาแสดงผล (Select)

@@ -89,6 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     subtitle: Text(
                       DateFormat("dd/MM/yyyy HH:mm:ss").format(data.date),
                     ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        provider.deleteTransaction(data);
+                      },
+                    ),
                   ),
                 );
               },

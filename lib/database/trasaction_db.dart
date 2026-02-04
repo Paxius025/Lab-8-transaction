@@ -39,6 +39,22 @@ class TransactionDB {
     return keyID;
   }
 
+
+  Future<void> deleteData(Transactions statement) async {
+    var db = await openDatabase();
+    var store = intMapStoreFactory.store("expense");
+    //ลบข้อมูล
+    final finder = Finder(
+      filter: Filter.and([
+        Filter.equals("title", statement.title),
+        Filter.equals("amount", statement.amount),
+        Filter.equals("date", statement.date.toIso8601String()),
+      ]),
+    );
+    await store.delete(db, finder: finder);
+    db.close();
+  }
+ 
   Future<List<Transactions>> loadAllData() async {
     var db = await openDatabase();
     var store = intMapStoreFactory.store("expense");
