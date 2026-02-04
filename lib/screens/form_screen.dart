@@ -4,10 +4,13 @@ import 'package:provider/provider.dart';
 import '../providers/transaction_provider.dart';
 
 class FormScreen extends StatelessWidget {
+  
   final fromKey = GlobalKey<FormState>();
 
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+
+  FormScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

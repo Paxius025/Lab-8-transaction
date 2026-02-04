@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../model/transaction.dart';
+import '../database/trasaction_db.dart';
 
 class TransactionProvider with ChangeNotifier {
   List<Transactions> transactions = [
@@ -11,9 +12,20 @@ class TransactionProvider with ChangeNotifier {
     return transactions;
   }
 
-  void addTransaction(Transactions statement) {
-    transactions.add(statement);
+  void addTransaction(Transactions statement) async {
+    var db = TransactionDB(dbName: "transactions.db");
+    //บันทึกข้อมูล (Insert)
+    await db.insertData(statement);
+    //ดึงข้อมูลมาแสดงผล (Select)
+    transactions = await db.loadAllData();
     //แจ้งเตือน Consumer
+    notifyListeners();
+  }
+
+  void initData() async {
+    var db = TransactionDB(dbName: "transactions.db");
+    //ดึงข้อมูลมาแสดงผล (Select)
+    transactions = await db.loadAllData();
     notifyListeners();
   }
 }
