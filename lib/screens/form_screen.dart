@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../providers/transaction_provider.dart';
 
 class FormScreen extends StatelessWidget {
-  
   final fromKey = GlobalKey<FormState>();
 
   final titleController = TextEditingController();
@@ -64,9 +63,13 @@ class FormScreen extends StatelessWidget {
                       listen: false,
                     );
                     provider.addTransaction(statement);
-                    Navigator.pop(context);
+
+                    DefaultTabController.of(context).animateTo(0);
+
+                    // Clear form
+                    titleController.clear();
+                    amountController.clear();
                   }
-                  ;
                 },
                 style: TextButton.styleFrom(
                   textStyle: TextStyle(fontSize: 20),

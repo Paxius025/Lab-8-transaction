@@ -14,11 +14,10 @@ class TransactionProvider with ChangeNotifier {
 
   void addTransaction(Transactions statement) async {
     var db = TransactionDB(dbName: "transactions.db");
-    //บันทึกข้อมูล (Insert)
+    
     await db.insertData(statement);
-    //ดึงข้อมูลมาแสดงผล (Select)
+
     transactions = await db.loadAllData();
-    //แจ้งเตือน Consumer
     notifyListeners();
   }
 

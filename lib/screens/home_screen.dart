@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../providers/transaction_provider.dart';
 import '../model/transaction.dart';
 import 'package:intl/intl.dart';
@@ -30,12 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FormScreen()),
-              );
+              SystemNavigator.pop();
             },
-            icon: const Icon(Icons.add),
+            icon: Icon(Icons.exit_to_app, color: Colors.red),
           ),
         ],
       ),
